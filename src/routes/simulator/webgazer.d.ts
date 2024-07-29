@@ -31,7 +31,7 @@ declare module 'webgazer' {
 		getCurrentPrediction(): GazeData;
 		begin(): Promise<void>;
 		end(): () => void;
-		pause(): () => void;
+		pause(): WebGazer;
 		resume(): () => void;
 	}
 
