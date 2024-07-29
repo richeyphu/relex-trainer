@@ -1,4 +1,7 @@
 // See https://kit.svelte.dev/docs/types#app
+
+import type { WebGazer } from 'webgazer';
+
 // for information about these interfaces
 declare global {
 	namespace App {
@@ -10,8 +13,7 @@ declare global {
 	}
 
 	interface Window {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		webgazer: any;
+		webgazer: WebGazer;
 	}
 }
 
