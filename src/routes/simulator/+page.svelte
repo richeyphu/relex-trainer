@@ -65,7 +65,9 @@
 			<div class="outer-circle">
 				<div class="inner-circle-1" />
 				<div class="inner-circle-2" />
-				<div class="fixate-circle" />
+				<div class="blink">
+					<div class="fixate-circle disappear" />
+				</div>
 			</div>
 		</div>
 	</section>
@@ -141,9 +143,11 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		animation:
-			blink 0.4s infinite,
-			0.5s disappear 9.5s forwards;
+		animation: disappear 0.5s linear 9.5s forwards;
+	}
+
+	.blink {
+		animation: blink 0.4s infinite;
 	}
 
 	@keyframes blink {
