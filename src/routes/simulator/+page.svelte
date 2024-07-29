@@ -1,14 +1,18 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import type { GazeData } from 'webgazer';
+	import type { WebGazer, GazeData } from 'webgazer';
+
+	let isTracking = true;
+	let shouldAnimate = true;
+	let webgazer: WebGazer;
 
 	onMount(async () => {
 		const module = await import('webgazer');
-		const webgazer = module.default;
+		webgazer = module.default;
 
 		window.webgazer = webgazer;
 
-		// start the webgazer tracker
+		// Start the webgazer tracker
 		await webgazer
 			.setRegression('ridge') // currently must set regression and tracker
 			// .setTracker('clmtrackr')
@@ -25,26 +29,59 @@
 	});
 
 	onDestroy(() => {
-		if (typeof window !== 'undefined' && window.webgazer) {
-			// stop the webgazer tracker
-			window.webgazer.end();
+		if (typeof webgazer !== 'undefined') {
+			webgazer.end(); // Stop the webgazer tracker
 		}
 	});
+
+	function toggleTracking() {
+		if (isTracking) {
+			webgazer.end();
+		} else {
+			webgazer.begin();
+		}
+		isTracking = !isTracking;
+	}
+
+	function restartAnimation() {
+		shouldAnimate = false;
+		setTimeout(() => {
+			shouldAnimate = true;
+		}, 0);
+	}
 </script>
 
-<section class="flex h-screen">
-	<div class="m-auto">
-		<div class="outer-circle">
-			<div class="inner-circle-1" />
-			<div class="inner-circle-2" />
-			<div class="fixate-circle" />
+{#if shouldAnimate}
+	<section class="flex h-screen">
+		<div class="m-auto">
+			<div class="outer-circle">
+				<div class="inner-circle-1" />
+				<div class="inner-circle-2" />
+				<div class="fixate-circle" />
+			</div>
 		</div>
+	</section>
+{/if}
+
+<footer class="fixed bottom-2 left-0 flex justify-between w-full px-2">
+	<div>
+		<a class="btn btn-neutral" href="/">Back</a>
 	</div>
-</section>
+	<div class="flex space-x-2">
+		<button class="btn btn-primary" on:click={toggleTracking}>
+			{#if isTracking}
+				Eye Tracking: OFF
+			{:else}
+				Eye Tracking: ON
+			{/if}
+		</button>
+		<button class="btn btn-secondary" on:click={restartAnimation}>Restart</button>
+	</div>
+</footer>
 
 <style>
 	:root {
-		background-color: black;
+		background-color: black !important;
 	}
 
 	.outer-circle {
