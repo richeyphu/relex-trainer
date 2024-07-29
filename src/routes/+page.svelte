@@ -1,6 +1,14 @@
 <script lang="ts">
 </script>
 
+<svelte:head>
+	<title>ReLEx Trainer</title>
+	<meta
+		name="description"
+		content="ReLEx SMILE Simulator: Keep your eye still during LASIK Surgery."
+	/>
+</svelte:head>
+
 <section class="hero bg-base-200 min-h-screen">
 	<div class="hero-content text-center">
 		<div class="max-w-lg">

@@ -51,6 +51,14 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Simulator | ReLEx Trainer</title>
+	<meta
+		name="description"
+		content="ReLEx SMILE Simulator: Keep your eye still during LASIK Surgery."
+	/>
+</svelte:head>
+
 {#if shouldAnimate}
 	<section class="flex h-screen">
 		<div class="m-auto">
