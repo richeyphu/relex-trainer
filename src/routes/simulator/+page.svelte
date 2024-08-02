@@ -66,7 +66,7 @@
 				<div class="inner-circle-1" />
 				<div class="inner-circle-2" />
 				<div class="blink">
-					<div class="fixate-circle disappear" />
+					<div class="fixate-circle" />
 				</div>
 			</div>
 		</div>
