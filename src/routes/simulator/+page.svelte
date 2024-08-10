@@ -51,7 +51,11 @@
 
 	onDestroy(() => {
 		if (typeof webgazer !== 'undefined') {
-			webgazer.end(); // Stop the webgazer tracker
+			try {
+				webgazer.end(); // Stop the webgazer tracker
+			} catch (error: unknown) {
+				console.error('Failed to stop webgazer:', error);
+			}
 		}
 	});
 
