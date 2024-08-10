@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
+	import Icon from '@iconify/svelte';
 	import type { WebGazer, GazeData } from 'webgazer';
 
 	let isTracking = true;
@@ -75,17 +76,29 @@
 
 <footer class="fixed bottom-2 left-0 flex justify-between w-full px-2">
 	<div>
-		<a class="btn btn-neutral" href="/">Back</a>
+		<a class="btn btn-neutral btn-square text-xl" href="/" role="button" title="Home">
+			<Icon icon="mi:home" />
+		</a>
 	</div>
 	<div class="flex space-x-2">
-		<button class="btn btn-primary" on:click={toggleTracking}>
+		<button
+			class="btn btn-primary btn-square text-xl"
+			on:click={toggleTracking}
+			title={isTracking ? 'Turn off eye tracking' : 'Turn on eye tracking'}
+		>
 			{#if isTracking}
-				Eye Tracking: OFF
+				<Icon icon="mi-eye-off" />
 			{:else}
-				Eye Tracking: ON
+				<Icon icon="mi:eye" />
 			{/if}
 		</button>
-		<button class="btn btn-secondary" on:click={restartAnimation}>Restart</button>
+		<button
+			class="btn btn-secondary btn-square text-xl"
+			on:click={restartAnimation}
+			title="Restart"
+		>
+			<Icon icon="mi:refresh" />
+		</button>
 	</div>
 </footer>
 
