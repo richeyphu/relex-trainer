@@ -20,6 +20,7 @@
 </section>
 <footer class="absolute bottom-0 flex w-full justify-center p-2">
 	<div class="text-sm font-extralight">
-		made with ❤️ by <a class="link" href="https://phurit.de" target="_blank">phurit.de</a>
+		made with ❤️ by
+		<a class="link link-primary link-hover" href="https://phurit.de" target="_blank">phurit.de</a>
 	</div>
 </footer>
