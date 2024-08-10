@@ -74,15 +74,15 @@
 	</section>
 {/if}
 
-<footer class="fixed bottom-2 left-0 flex justify-between w-full px-2">
+<footer class="fixed bottom-2 left-0 flex w-full justify-between px-2">
 	<div>
-		<a class="btn btn-neutral btn-square text-xl" href="/" role="button" title="Home">
+		<a class="btn btn-square btn-neutral text-xl" href="/" role="button" title="Home">
 			<Icon icon="mi:home" />
 		</a>
 	</div>
 	<div class="flex space-x-2">
 		<button
-			class="btn btn-primary btn-square text-xl"
+			class="btn btn-square btn-primary text-xl"
 			on:click={toggleTracking}
 			title={isTracking ? 'Turn off eye tracking' : 'Turn on eye tracking'}
 		>
@@ -93,7 +93,7 @@
 			{/if}
 		</button>
 		<button
-			class="btn btn-secondary btn-square text-xl"
+			class="btn btn-square btn-secondary text-xl"
 			on:click={restartAnimation}
 			title="Restart"
 		>
