@@ -1,71 +1,40 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
 	import Icon from '@iconify/svelte';
+	import { useWebGazerLifecycle } from './hooks.client';
 	import type { WebGazer, GazeData } from 'webgazer';
 
 	let isTracking = true;
 	let shouldAnimate = true;
 	let webgazer: WebGazer;
 
-	onMount(async () => {
-		const module = await import('webgazer');
-		webgazer = module.default;
-		window.webgazer = webgazer;
-
-		try {
-			// Start the webgazer tracker
-			await webgazer
-				.setRegression('ridge') // currently must set regression and tracker
-				// .setTracker('clmtrackr')
-				.setGazeListener((data: GazeData | null, clock: number) => {
-					console.log(data); // data is an object containing an x and y key which are the x and y prediction coordinates (no bounds limiting)
-					console.log(clock); // elapsed time in milliseconds since webgazer.begin() was called
-				})
-				.saveDataAcrossSessions(true)
-				.begin();
-			webgazer
-				.showVideoPreview(true) // shows all video previews
-				.showPredictionPoints(true) // shows a square every 100 milliseconds where current prediction is
-				.applyKalmanFilter(true); // Kalman Filter defaults to on. Can be toggled by user.
-		} catch (error: unknown) {
-			if (error instanceof Error) {
-				if (error.name === 'NotAllowedError') {
-					console.error('Camera access denied:', error);
-					alert('Camera access was denied. Please allow camera access and try again.');
-				} else if (error.name === 'NotFoundError') {
-					console.error('No camera found:', error);
-					alert('No camera was found. Please connect a camera and try again.');
-				} else if (error.name === 'NotReadableError') {
-					console.error('Camera is not readable:', error);
-					alert('The camera is not readable. It might be in use by another application.');
-				} else {
-					console.error('Failed to initialize webgazer:', error);
-					alert('Failed to access the camera. Please check your camera settings and permissions.');
-				}
-			} else {
-				console.error('An unknown error occurred:', error);
-				alert('An unknown error occurred. Please try again.');
-			}
+	useWebGazerLifecycle(
+		(data: GazeData | null, clock: number) => {
+			console.log(data);
+			console.log(clock);
+		},
+		() => {
+			console.log('WebGazer component destroyed');
 		}
-	});
-
-	onDestroy(() => {
-		if (typeof webgazer !== 'undefined') {
-			try {
-				webgazer.end(); // Stop the webgazer tracker
-			} catch (error: unknown) {
-				console.error('Failed to stop webgazer:', error);
-			}
-		}
-	});
+	)
+		.then((wg) => {
+			console.log('WebGazer initialized');
+			webgazer = wg;
+		})
+		.catch((error) => {
+			console.error('Failed to initialize WebGazer:', error);
+		});
 
 	function toggleTracking() {
-		if (isTracking) {
-			webgazer.end();
+		if (webgazer) {
+			if (isTracking) {
+				webgazer.end();
+			} else {
+				webgazer.begin();
+			}
+			isTracking = !isTracking;
 		} else {
-			webgazer.begin();
+			console.error('WebGazer is not initialized');
 		}
-		isTracking = !isTracking;
 	}
 
 	function restartAnimation() {
