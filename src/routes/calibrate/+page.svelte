@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { TITLE, DESCRIPTION } from '$lib';
 	import { useWebGazerLifecycle } from '../simulator/hooks.client';
 	import type { GazeData } from 'webgazer';
 
@@ -42,11 +43,8 @@
 </script>
 
 <svelte:head>
-	<title>Calibrate | ReLEx Trainer</title>
-	<meta
-		name="description"
-		content="ReLEx SMILE Simulator: Keep your eye still during LASIK Surgery."
-	/>
+	<title>Calibrate | {TITLE}</title>
+	<meta name="description" content={DESCRIPTION} />
 </svelte:head>
 
 <main class="grid h-screen w-screen grid-cols-3 grid-rows-3 items-center">

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { TITLE, DESCRIPTION } from '$lib';
 	import Icon from '@iconify/svelte';
 	import { useWebGazerLifecycle } from './hooks.client';
 	import type { WebGazer, GazeData } from 'webgazer';
@@ -46,11 +47,8 @@
 </script>
 
 <svelte:head>
-	<title>Simulator | ReLEx Trainer</title>
-	<meta
-		name="description"
-		content="ReLEx SMILE Simulator: Keep your eye still during LASIK Surgery."
-	/>
+	<title>Simulator | {TITLE}</title>
+	<meta name="description" content={DESCRIPTION} />
 </svelte:head>
 
 {#if shouldAnimate}

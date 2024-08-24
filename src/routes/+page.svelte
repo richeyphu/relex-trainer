@@ -1,12 +1,10 @@
 <script lang="ts">
+	import { TITLE, DESCRIPTION } from '$lib';
 </script>
 
 <svelte:head>
-	<title>ReLEx Trainer</title>
-	<meta
-		name="description"
-		content="ReLEx SMILE Simulator: Keep your eye still during LASIK Surgery."
-	/>
+	<title>{TITLE}</title>
+	<meta name="description" content={DESCRIPTION} />
 </svelte:head>
 
 <section class="hero min-h-screen bg-base-200">
