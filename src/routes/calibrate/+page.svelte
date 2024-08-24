@@ -54,7 +54,6 @@
 		<div class="flex items-center justify-center">
 			<button
 				class="m-2 h-6 w-6 rounded-full transition-colors duration-500"
-				class:rotate={clickCount === 5}
 				on:click={() => handleClick(index)}
 				style="background-color: {getCircleColor(clickCount)};"
 				type="button"
@@ -67,14 +66,5 @@
 <style>
 	:root {
 		background-color: black !important;
-	}
-
-	@keyframes sweep {
-		from {
-			clip-path: polygon(50% 50%, 50% 0%, 50% 0%);
-		}
-		to {
-			clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%);
-		}
 	}
 </style>
