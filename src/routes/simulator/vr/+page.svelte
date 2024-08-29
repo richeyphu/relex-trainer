@@ -22,6 +22,8 @@
 			shouldAnimateLeft = true;
 		} else if (countdown === -50) {
 			shouldAnimateLeft = false;
+		} else if (countdown === -60) {
+			countdown = 10;
 		}
 	}
 </script>
@@ -57,8 +59,8 @@
 	</div>
 	{#if !shouldAnimateLeft && !shouldAnimateRight}
 		<div class="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform">
-			<div class="card bg-base-100 shadow-xl">
-				<div class="card-body">
+			<div class="card bg-base-100">
+				<div class="card-body text-lg">
 					{#if countdown >= 0}
 						<p>
 							VR will start in {countdown} second{countdown > 1 ? 's' : ''}...
@@ -66,7 +68,7 @@
 					{:else if countdown >= -30}
 						<p>Rest: {Math.abs(countdown + 30)}</p>
 					{:else}
-						<p>VR has ended</p>
+						<p>VR has ended. Restart in {Math.abs(countdown + 60)}...</p>
 					{/if}
 				</div>
 			</div>
