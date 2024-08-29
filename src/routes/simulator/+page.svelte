@@ -52,9 +52,9 @@
 </svelte:head>
 
 {#if shouldAnimate}
-	<section class="flex h-screen">
-		<div class="m-auto">
-			<div class="outer-circle">
+	<section class="flex h-screen justify-center items-center">
+		<div class="h-3/5">
+			<div class="outer-circle aspect-square">
 				<div class="inner-circle-1" />
 				<div class="inner-circle-2" />
 				<div class="blink">
@@ -99,8 +99,8 @@
 	}
 
 	.outer-circle {
-		width: 500px;
-		height: 500px;
+		width: 100%;
+		height: 100%;
 		background-color: #404040;
 		border-radius: 50%;
 		position: relative;
