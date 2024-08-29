@@ -1,17 +1,33 @@
 <script lang="ts">
 	import { TITLE, DESCRIPTION } from '$lib';
+	import { onMount } from 'svelte';
 
 	let shouldAnimateLeft = false;
 	let shouldAnimateRight = false;
 	let countdown = 10;
+	let isLandscape = false;
 
-	const countdownInterval = setInterval(() => {
-		if (countdown > -60) {
-			countdown -= 1;
-		} else {
+	const checkLandscape = () => {
+		isLandscape = window.matchMedia('(orientation: landscape)').matches;
+	};
+
+	onMount(() => {
+		checkLandscape();
+		window.addEventListener('resize', checkLandscape);
+
+		const countdownInterval = setInterval(() => {
+			if (countdown > -60) {
+				countdown -= 1;
+			} else {
+				clearInterval(countdownInterval);
+			}
+		}, 1000);
+
+		return () => {
+			window.removeEventListener('resize', checkLandscape);
 			clearInterval(countdownInterval);
-		}
-	}, 1000);
+		};
+	});
 
 	$: {
 		if (countdown === 0) {
@@ -61,15 +77,17 @@
 		<div class="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform">
 			<div class="card bg-base-100">
 				<div class="card-body text-lg">
-					{#if countdown >= 0}
-						<p>
+					<p>
+						{#if !isLandscape}
+							Please rotate your device to landscape mode.
+						{:else if countdown >= 0}
 							VR will start in {countdown} second{countdown > 1 ? 's' : ''}...
-						</p>
-					{:else if countdown >= -30}
-						<p>Rest: {Math.abs(countdown + 30)}</p>
-					{:else}
-						<p>VR has ended. Restart in {Math.abs(countdown + 60)}...</p>
-					{/if}
+						{:else if countdown >= -30}
+							Rest: {Math.abs(countdown + 30)}
+						{:else}
+							VR has ended. Restart in {Math.abs(countdown + 60)}...
+						{/if}
+					</p>
 				</div>
 			</div>
 		</div>
