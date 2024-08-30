@@ -27,10 +27,11 @@
 		const countdownInterval = setInterval(() => {
 			if (vrStarted && countdown > -60) {
 				countdown -= 1;
-			} else if (countdown <= -60) {
-				vrStarted = false;
-				clearInterval(countdownInterval);
-			}
+			} 
+			// else if (countdown <= -60) {
+			// 	vrStarted = false;
+			// 	clearInterval(countdownInterval);
+			// }
 		}, 1000);
 
 		return () => {
