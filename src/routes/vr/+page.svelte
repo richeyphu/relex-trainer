@@ -1,23 +1,35 @@
 <script lang="ts">
 	import { TITLE, DESCRIPTION } from '$lib';
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 
 	let animateLeft = false;
 	let animateRight = false;
 	let countdown = 10;
 	let isLandscape = false;
 	let vrStarted = false;
+	let wakeLock: WakeLockSentinel | null = null;
 
-	const startVR = () => {
+	const startVR = async () => {
 		vrStarted = true;
 		countdown = 10;
 		animateLeft = false;
 		animateRight = false;
 
 		try {
-			document.documentElement.requestFullscreen();
+			await document.documentElement.requestFullscreen();
 		} catch (error) {
 			console.error('Failed to enter fullscreen:', error);
+		}
+
+		try {
+			if ('wakeLock' in navigator) {
+				wakeLock = await navigator.wakeLock.request();
+				console.log('Wake lock is active');
+			} else {
+				console.warn('Wake Lock API is not supported in this browser.');
+			}
+		} catch (error) {
+			console.error('Failed to acquire wake lock:', error);
 		}
 	};
 
@@ -42,6 +54,15 @@
 			window.removeEventListener('resize', checkLandscape);
 			clearInterval(countdownInterval);
 		};
+	});
+
+	onDestroy(() => {
+		if (wakeLock) {
+			wakeLock.release().then(() => {
+				console.log('Wake lock released');
+				wakeLock = null;
+			});
+		}
 	});
 
 	$: {
