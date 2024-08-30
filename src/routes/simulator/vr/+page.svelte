@@ -61,7 +61,9 @@
 			</div>
 		{/if}
 	</div>
-	<div class="absolute right-1/2 h-screen w-[1px] bg-slate-800"></div>
+	<div class="absolute right-1/2 h-screen w-[1px] bg-slate-800">
+		<!-- Divider -->
+	</div>
 	<div class="m-auto w-10/12">
 		{#if shouldAnimateRight}
 			<div class="outer-circle aspect-square">
@@ -75,8 +77,8 @@
 	</div>
 	{#if !shouldAnimateLeft && !shouldAnimateRight}
 		<div class="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform">
-			<div class="card bg-base-100">
-				<div class="card-body text-lg">
+			<div class="card bg-gray-800">
+				<div class="card-body text-lg text-gray-400">
 					<p>
 						{#if !isLandscape}
 							Please rotate your device to landscape mode.
