@@ -12,7 +12,10 @@
 		<div class="max-w-lg">
 			<h1 class="text-5xl font-bold">ReLEx Trainer</h1>
 			<p class="py-6">ReLEx SMILE Simulator: Keep your eye still during LASIK Surgery.</p>
-			<a href="/simulator" class="btn btn-primary">Get Started</a>
+			<div class="flex items-center justify-center gap-2">
+				<a href="/simulator" class="btn btn-primary">Get Started</a>
+				<a href="/vr" class="btn btn-secondary">VR Mode</a>
+			</div>
 		</div>
 	</div>
 </section>
