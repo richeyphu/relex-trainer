@@ -2,10 +2,19 @@
 	import { TITLE, DESCRIPTION } from '$lib';
 	import { onMount } from 'svelte';
 
-	let shouldAnimateLeft = false;
-	let shouldAnimateRight = false;
+	let animateLeft = false;
+	let animateRight = false;
 	let countdown = 10;
 	let isLandscape = false;
+	let vrStarted = false;
+
+	const startVR = () => {
+		vrStarted = true;
+		countdown = 10;
+		animateLeft = false;
+		animateRight = false;
+		document.documentElement.requestFullscreen();
+	};
 
 	const checkLandscape = () => {
 		isLandscape = window.matchMedia('(orientation: landscape)').matches;
@@ -16,9 +25,10 @@
 		window.addEventListener('resize', checkLandscape);
 
 		const countdownInterval = setInterval(() => {
-			if (countdown > -60) {
+			if (vrStarted && countdown > -60) {
 				countdown -= 1;
-			} else {
+			} else if (countdown <= -60) {
+				vrStarted = false;
 				clearInterval(countdownInterval);
 			}
 		}, 1000);
@@ -31,15 +41,15 @@
 
 	$: {
 		if (countdown === 0) {
-			shouldAnimateRight = true;
+			animateRight = true;
 		} else if (countdown === -20) {
-			shouldAnimateRight = false;
+			animateRight = false;
 		} else if (countdown === -30) {
-			shouldAnimateLeft = true;
+			animateLeft = true;
 		} else if (countdown === -50) {
-			shouldAnimateLeft = false;
+			animateLeft = false;
 		} else if (countdown === -60) {
-			countdown = 10;
+			startVR(); // Loop
 		}
 	}
 </script>
@@ -51,7 +61,7 @@
 
 <main class="grid h-screen grid-flow-col gap-1">
 	<div class="m-auto w-10/12">
-		{#if shouldAnimateLeft}
+		{#if animateLeft}
 			<div class="outer-circle aspect-square">
 				<div class="inner-circle-1" />
 				<div class="inner-circle-2" />
@@ -65,7 +75,7 @@
 		<!-- Divider -->
 	</div>
 	<div class="m-auto w-10/12">
-		{#if shouldAnimateRight}
+		{#if animateRight}
 			<div class="outer-circle aspect-square">
 				<div class="inner-circle-1" />
 				<div class="inner-circle-2" />
@@ -75,21 +85,25 @@
 			</div>
 		{/if}
 	</div>
-	{#if !shouldAnimateLeft && !shouldAnimateRight}
+	{#if !animateLeft && !animateRight}
 		<div class="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform">
 			<div class="card bg-gray-800">
 				<div class="card-body text-lg text-gray-400">
-					<p>
-						{#if !isLandscape}
-							Please rotate your device to landscape mode.
-						{:else if countdown >= 0}
-							VR will start in {countdown} second{countdown > 1 ? 's' : ''}...
-						{:else if countdown >= -30}
-							Rest: {Math.abs(countdown + 30)}
-						{:else}
-							VR has ended. Restart in {Math.abs(countdown + 60)}...
-						{/if}
-					</p>
+					{#if !vrStarted}
+						<button class="btn btn-primary" on:click={startVR}> Start VR </button>
+					{:else}
+						<p>
+							{#if !isLandscape}
+								Please rotate your device to landscape mode.
+							{:else if countdown >= 0}
+								VR will start in {countdown} second{countdown > 1 ? 's' : ''}...
+							{:else if countdown >= -30}
+								Rest: {Math.abs(countdown + 30)}
+							{:else}
+								VR has ended. Restart in {Math.abs(countdown + 60)}...
+							{/if}
+						</p>
+					{/if}
 				</div>
 			</div>
 		</div>
