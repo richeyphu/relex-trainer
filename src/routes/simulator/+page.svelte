@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { TITLE, DESCRIPTION } from '$lib';
+	import { EyeAnimation } from '$lib/components';
 	import Icon from '@iconify/svelte';
 	import { useWebGazerLifecycle } from './hooks.client';
 	import type { WebGazer, GazeData } from 'webgazer';
@@ -51,152 +52,44 @@
 	<meta name="description" content={DESCRIPTION} />
 </svelte:head>
 
-{#if shouldAnimate}
+<main>
 	<section class="flex h-screen items-center justify-center">
 		<div class="portrait:w-11/12 landscape:h-3/5">
-			<div class="outer-circle aspect-square">
-				<div class="inner-circle-1" />
-				<div class="inner-circle-2" />
-				<div class="blink">
-					<div class="fixate-circle" />
-				</div>
-			</div>
+			<EyeAnimation play={shouldAnimate} />
 		</div>
 	</section>
-{/if}
 
-<footer class="fixed bottom-2 left-0 flex w-full justify-between px-2">
-	<div>
-		<a class="btn btn-square btn-neutral text-xl" href="/" role="button" title="Home">
-			<Icon icon="mi:home" />
-		</a>
-	</div>
-	<div class="flex space-x-2">
-		<button
-			class="btn btn-square btn-primary text-xl"
-			on:click={toggleTracking}
-			title={isTracking ? 'Turn off eye tracking' : 'Turn on eye tracking'}
-		>
-			{#if isTracking}
-				<Icon icon="mi-eye-off" />
-			{:else}
-				<Icon icon="mi:eye" />
-			{/if}
-		</button>
-		<button
-			class="btn btn-square btn-secondary text-xl"
-			on:click={restartAnimation}
-			title="Restart"
-		>
-			<Icon icon="mi:refresh" />
-		</button>
-	</div>
-</footer>
+	<footer class="fixed bottom-2 left-0 flex w-full justify-between px-2">
+		<div>
+			<a class="btn btn-square btn-neutral text-xl" href="/" role="button" title="Home">
+				<Icon icon="mi:home" />
+			</a>
+		</div>
+		<div class="flex space-x-2">
+			<button
+				class="btn btn-square btn-primary text-xl"
+				on:click={toggleTracking}
+				title={isTracking ? 'Turn off eye tracking' : 'Turn on eye tracking'}
+			>
+				{#if isTracking}
+					<Icon icon="mi-eye-off" />
+				{:else}
+					<Icon icon="mi:eye" />
+				{/if}
+			</button>
+			<button
+				class="btn btn-square btn-secondary text-xl"
+				on:click={restartAnimation}
+				title="Restart"
+			>
+				<Icon icon="mi:refresh" />
+			</button>
+		</div>
+	</footer>
+</main>
 
 <style>
 	:root {
 		background-color: black !important;
-	}
-
-	.outer-circle {
-		width: 100%;
-		height: 100%;
-		background-color: #404040;
-		border-radius: 50%;
-		position: relative;
-	}
-
-	.inner-circle-1 {
-		width: 100%;
-		height: 100%;
-		background-color: #202020;
-		border-radius: 50%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		box-sizing: border-box;
-		animation:
-			sweep-to-center 10s linear forwards,
-			fade-in 0s linear forwards;
-		animation-delay: 0s, 0s;
-		opacity: 0;
-	}
-
-	.inner-circle-2 {
-		width: 100%;
-		height: 100%;
-		background-color: #606060;
-		border-radius: 50%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		box-sizing: border-box;
-		animation:
-			sweep-to-center-reverse 10s linear forwards,
-			fade-in 0s linear forwards;
-		animation-delay: 10s, 10s;
-		opacity: 0;
-	}
-
-	.fixate-circle {
-		width: 10px;
-		height: 10px;
-		background-color: green;
-		border-radius: 50%;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		animation: disappear 0.5s linear 9.5s forwards;
-	}
-
-	.blink {
-		animation: blink 0.4s infinite;
-	}
-
-	@keyframes blink {
-		0%,
-		100% {
-			opacity: 1;
-		}
-		50% {
-			opacity: 0;
-		}
-	}
-
-	@keyframes disappear {
-		0% {
-			opacity: 1;
-		}
-		100% {
-			opacity: 0;
-		}
-	}
-
-	@keyframes sweep-to-center {
-		0% {
-			clip-path: circle(50% at 50% 50%);
-		}
-		100% {
-			clip-path: circle(0% at 50% 50%);
-		}
-	}
-
-	@keyframes sweep-to-center-reverse {
-		0% {
-			clip-path: circle(0% at 50% 50%);
-		}
-		100% {
-			clip-path: circle(50% at 50% 50%);
-		}
-	}
-
-	@keyframes fade-in {
-		0% {
-			opacity: 0;
-		}
-		100% {
-			opacity: 1;
-		}
 	}
 </style>
