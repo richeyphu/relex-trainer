@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { TITLE, DESCRIPTION } from '$lib';
+	import { DESCRIPTION, TITLE } from '$lib';
 	import { EyeAnimation } from '$lib/components';
 	import Icon from '@iconify/svelte';
 

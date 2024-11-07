@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { TITLE, DESCRIPTION } from '$lib';
-	import { useWebGazerLifecycle } from '../simulator/hooks.client';
+	import { DESCRIPTION, TITLE } from '$lib';
 	import type { GazeData } from 'webgazer';
+	import { useWebGazerLifecycle } from '../simulator/hooks.client';
 
 	let clickCounts = $state(Array(9).fill(0));
 

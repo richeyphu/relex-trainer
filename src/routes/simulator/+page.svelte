@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { TITLE, DESCRIPTION } from '$lib';
+	import { DESCRIPTION, TITLE } from '$lib';
 	import { EyeAnimation } from '$lib/components';
 	import Icon from '@iconify/svelte';
+	import type { GazeData, WebGazer } from 'webgazer';
 	import { useWebGazerLifecycle } from './hooks.client';
-	import type { WebGazer, GazeData } from 'webgazer';
 
 	let isTracking = $state(true);
 	let shouldAnimate = $state(true);

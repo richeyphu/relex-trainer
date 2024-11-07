@@ -1,5 +1,5 @@
-import { onMount, onDestroy } from 'svelte';
-import type { WebGazer, GazeData } from 'webgazer';
+import { onDestroy, onMount } from 'svelte';
+import type { GazeData, WebGazer } from 'webgazer';
 
 export function useWebGazerLifecycle(
 	onGazeListener: (data: GazeData | null, clock: number) => void,
