@@ -4,10 +4,10 @@
 
 {#if play}
 	<div class="outer-circle aspect-square">
-		<div class="inner-circle-1" />
-		<div class="inner-circle-2" />
+		<div class="inner-circle-1"></div>
+		<div class="inner-circle-2"></div>
 		<div class="blink">
-			<div class="fixate-circle" />
+			<div class="fixate-circle"></div>
 		</div>
 	</div>
 {/if}

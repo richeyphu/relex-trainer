@@ -55,6 +55,7 @@
 				on:click={() => handleClick(index)}
 				style="background-color: {getCircleColor(clickCount)};"
 				type="button"
+				aria-label="Click me"
 			>
 			</button>
 		</div>
