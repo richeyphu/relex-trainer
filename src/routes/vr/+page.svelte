@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
-	import { TITLE, DESCRIPTION } from '$lib';
+	import { DESCRIPTION, TITLE } from '$lib';
 	import { EyeAnimation } from '$lib/components';
-	import { onMount, onDestroy } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	let animateLeft = $state(false);
 	let animateRight = $state(false);
@@ -68,7 +66,7 @@
 		}
 	});
 
-	run(() => {
+	$effect(() => {
 		if (countdown === 0) {
 			animateRight = true;
 		} else if (countdown === -20) {
