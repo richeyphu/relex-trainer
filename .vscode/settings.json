@@ -5,5 +5,21 @@
 	"editor.quickSuggestions": {
 		"strings": true
 	},
-	"tailwindCSS.experimental.configFile": "tailwind.config.js"
+	"tailwindCSS.experimental.configFile": "tailwind.config.js",
+	"cSpell.words": [
+		"clmtrackr",
+		"daisyui",
+		"iconify",
+		"imagex",
+		"imagey",
+		"Kalman",
+		"LASIK",
+		"phurit",
+		"relex",
+		"sveltejs",
+		"tailwindcss",
+		"vercel",
+		"vite",
+		"webgazer"
+	]
 }
