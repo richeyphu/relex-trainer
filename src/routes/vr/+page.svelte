@@ -1,13 +1,15 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { TITLE, DESCRIPTION } from '$lib';
 	import { EyeAnimation } from '$lib/components';
 	import { onMount, onDestroy } from 'svelte';
 
-	let animateLeft = false;
-	let animateRight = false;
-	let countdown = 10;
-	let isLandscape = false;
-	let vrStarted = false;
+	let animateLeft = $state(false);
+	let animateRight = $state(false);
+	let countdown = $state(10);
+	let isLandscape = $state(false);
+	let vrStarted = $state(false);
 	let wakeLock: WakeLockSentinel | null = null;
 
 	const startVR = async () => {
@@ -66,7 +68,7 @@
 		}
 	});
 
-	$: {
+	run(() => {
 		if (countdown === 0) {
 			animateRight = true;
 		} else if (countdown === -20) {
@@ -78,7 +80,7 @@
 		} else if (countdown === -60) {
 			startVR(); // Loop
 		}
-	}
+	});
 </script>
 
 <svelte:head>
@@ -101,7 +103,7 @@
 			<div class="card bg-gray-800">
 				<div class="card-body text-lg text-gray-400">
 					{#if !vrStarted}
-						<button class="btn btn-primary" on:click={startVR}> Start VR </button>
+						<button class="btn btn-primary" onclick={startVR}> Start VR </button>
 					{:else}
 						<p>
 							{#if !isLandscape}

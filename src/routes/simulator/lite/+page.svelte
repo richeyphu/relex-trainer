@@ -3,7 +3,7 @@
 	import { EyeAnimation } from '$lib/components';
 	import Icon from '@iconify/svelte';
 
-	let shouldAnimate = true;
+	let shouldAnimate = $state(true);
 
 	function restartAnimation() {
 		shouldAnimate = false;
@@ -34,7 +34,7 @@
 		<div class="flex space-x-2">
 			<button
 				class="btn btn-square btn-secondary text-xl"
-				on:click={restartAnimation}
+				onclick={restartAnimation}
 				title="Restart"
 			>
 				<Icon icon="mi:refresh" />

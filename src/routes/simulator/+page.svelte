@@ -5,8 +5,8 @@
 	import { useWebGazerLifecycle } from './hooks.client';
 	import type { WebGazer, GazeData } from 'webgazer';
 
-	let isTracking = true;
-	let shouldAnimate = true;
+	let isTracking = $state(true);
+	let shouldAnimate = $state(true);
 	let webgazer: WebGazer;
 
 	useWebGazerLifecycle(
@@ -68,7 +68,7 @@
 		<div class="flex space-x-2">
 			<button
 				class="btn btn-square btn-primary text-xl"
-				on:click={toggleTracking}
+				onclick={toggleTracking}
 				title={isTracking ? 'Turn off eye tracking' : 'Turn on eye tracking'}
 			>
 				{#if isTracking}
@@ -79,7 +79,7 @@
 			</button>
 			<button
 				class="btn btn-square btn-secondary text-xl"
-				on:click={restartAnimation}
+				onclick={restartAnimation}
 				title="Restart"
 			>
 				<Icon icon="mi:refresh" />

@@ -3,7 +3,7 @@
 	import { useWebGazerLifecycle } from '../simulator/hooks.client';
 	import type { GazeData } from 'webgazer';
 
-	let clickCounts = Array(9).fill(0);
+	let clickCounts = $state(Array(9).fill(0));
 
 	function handleClick(index: number) {
 		if (clickCounts[index] <= 5) {
@@ -52,7 +52,7 @@
 		<div class="flex items-center justify-center">
 			<button
 				class="m-2 h-6 w-6 rounded-full transition-colors duration-500"
-				on:click={() => handleClick(index)}
+				onclick={() => handleClick(index)}
 				style="background-color: {getCircleColor(clickCount)};"
 				type="button"
 				aria-label="Click me"
